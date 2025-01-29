@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rival - Sign In</title>
+  <link rel="stylesheet" href="in_styles.css" />
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { firebaseConfig } from "./firebase-config.js"; // or inline your config
+
+    // 1. Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // 2. Sign in function (no inline onclick)
+    async function signIn(email, password) {
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log("Signed in:", user);
+
+        // Redirect to home page after login
+        window.location.href = "home.html";
+      } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Sign in error:", errorCode, errorMessage);
+
+        if (errorCode === "auth/wrong-password") {
+          alert("Incorrect password. Please try again.");
+        } else if (errorCode === "auth/user-not-found") {
+          alert("User not found. Please check the email address.");
+        } else {
+          alert(`Sign in failed: ${errorMessage}`);
+        }
+      }
+    }
+
+    // Sign in with google
+    async function signInWGoogle() {
+      try {
+        await signInWithPopup(auth, provider)
+        // Redirect to home page after login
+        window.location.href = "home.html";
+       } catch(error){
+        console.error("Error: ", error)
+        alert("Could not sign in with google: " + error.message);
+       }
+      }
+
+  
+
+    // 3. Reset password function (no inline onclick)
+    async function resetPassword(email) {
+      try {
+        await sendPasswordResetEmail(auth, email);
+        alert("Password reset email sent!");
+      } catch (error) {
+        console.error("Error sending password reset:", error);
+        alert("Could not send reset email: " + error.message);
+      }
+    }
+
+    // 4. Attach event listeners once DOM is loaded
+    window.addEventListener("DOMContentLoaded", () => {
+      // Sign-in button
+      const signInBtn = document.getElementById("signin-button");
+      signInBtn.addEventListener("click", () => {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        signIn(email, password);
+      });
+
+      // Forgot password button
+      const forgotBtn = document.getElementById("forgot-button");
+      forgotBtn.addEventListener("click", () => {
+        const email = document.getElementById("email").value;
+        resetPassword(email);
+      });
+
+      // Sign In with Google button
+      const signInWGoogleBtn = document.getElementById("google-signin-button");
+      signInWGoogleBtn.addEventListener("click", () => {
+        signInWGoogle();
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="profile-container">
+  <h2>Sign In</h2>
+  <input type="email" id="email" placeholder="Email" />
+  <input type="password" id="password" placeholder="Password" />
+  
+  <!-- Sign in button -->
+  <button id="signin-button">Sign In</button>
+  
+  <!--  Forgot Password button -->
+  <button id="forgot-button">Forgot Password?</button>
+
+  <!--  sign in with google button -->
+  <button id="google-signin-button">Sign in with Google</button>
+ 
+  <!--  sign up section -->
+  <section id="signup-section">
+    <div class="section-title">New User? Sign Up!</div>
+    <button id="signup-button" onclick="window.location.href='signup.html'">Sign Up</button>
+  </section>
+</div>
+</body>
+</html>

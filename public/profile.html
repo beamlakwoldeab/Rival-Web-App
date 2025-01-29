@@ -1,0 +1,175 @@
+<!-- missing profile photo functionality -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rival - Profile</title>
+  <link rel="stylesheet" href="styles.css"> </head>
+</head>
+<body>
+
+<!-- TOP NAVBAR -->
+  <header class="navbar">
+  <!-- Logo Image -->
+  <div class="navbar-logo">
+    <a href = "home.html"><img src="logo.png" alt="Rival logo" /></a>
+  </div></header>
+
+  <div class="profile-container">
+  <h1 class="profile-title">Account</h1>
+
+    <!-- Photo Section -->
+    <div class="photo-section">
+      <div class="photo-wrapper">
+        <!-- Default / or user photo from DB -->
+        <img id="profilePhoto" src="https://via.placeholder.com/80/FFFFFF/000000?text=Photo" alt="User Photo" />
+      </div>
+      <div class="photo-buttons">
+        <button id="changePhotoBtn">change</button>
+        <button id="removePhotoBtn">remove</button>
+      </div>
+    </div>
+
+    <!-- Name Field -->
+    <div class="field-group">
+      <label for="userName">Name:</label>
+      <input type="text" id="userName" />
+
+    </div>
+
+    <!-- Email Field -->
+    <div class="field-group">
+      <label for="userEmail">Email:</label>
+      <input type="email" id="userEmail" />
+    </div>
+
+    <!-- Teams Section -->
+    <div class="teams-section">
+      <div>My teams:</div>
+      <div class="teams-list" id="teamsList">
+        <!-- Example badges. These will be dynamically populated. -->
+      </div>
+    </div>
+
+    <!-- Update Button -->
+    <button class="update-btn" id="updateProfileBtn">UPDATE</button>
+  </div>
+
+  <script type="module">
+
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+      import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"; 
+      import { firebaseConfig } from "./firebase-config.js";
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      // DOM references
+      const profilePhoto = document.getElementById('profilePhoto');
+      const userName = document.getElementById('userName');
+      const userEmail = document.getElementById('userEmail');
+      const teamsList = document.getElementById('teamsList');
+      const updateProfileBtn = document.getElementById('updateProfileBtn');
+      const changePhotoBtn = document.getElementById('changePhotoBtn');
+      const removePhotoBtn = document.getElementById('removePhotoBtn');
+
+      // Fetch user data from Firestore when a user signs in
+      auth.onAuthStateChanged(async (user) => {
+        if (user) { // Check if a user is signed in
+          const userRef = doc(db, "users", user.uid); // Reference to Firestore document
+          const userDoc = await getDoc(userRef); // Fetch document
+
+          if (userDoc.exists()) { // If the document exists, populate the UI
+            const userData = userDoc.data();
+            userName.value = userData.name || ""; // Set name input
+            userEmail.value = userData.email || ""; // Set email input
+            profilePhoto.src = userData.photoURL || profilePhoto.src; // Set photo
+            teamArray = userData.teams || []; // Initialize global teamArray
+            renderTeams(userData.teams); // Populate teams list
+
+          } 
+        } else {
+          console.log("No user is signed in.");
+        }
+      });
+// 'teamArray' is a global variable or we fetch it from Firestore:
+let teamArray = []; // default if not set
+
+function renderTeams(array) {
+  teamsList.innerHTML = ""; // Clear old content
+
+  // If array is undefined or null, default to an empty array
+  array = array || [];
+
+  // Create a badge for each existing team
+  array.forEach(team => {
+    const badge = document.createElement("div");
+    badge.classList.add("team-badge");
+    badge.textContent = team;
+    teamsList.appendChild(badge);
+  });
+
+  // After rendering existing teams, add the "+" badge
+  const addBadge = document.createElement("div");
+  addBadge.classList.add("team-badge", "add-badge");
+  addBadge.textContent = "+";
+
+  addBadge.addEventListener("click", () => {
+    const newTeam = prompt("Enter new team:");
+    if (newTeam) {
+      teamArray.push(newTeam.toUpperCase());
+      // Re-render with the updated array
+      renderTeams(teamArray);
+    }
+  });
+
+  teamsList.appendChild(addBadge);
+}
+
+renderTeams(teamArray);
+
+      // Change photo functionality
+      changePhotoBtn.addEventListener("click", () => {
+        const newURL = prompt("Enter new photo URL:"); // Prompt for new photo URL
+        if (newURL) {
+          profilePhoto.src = newURL; // Update photo in UI
+        }
+      });
+
+      // Remove photo functionality
+      removePhotoBtn.addEventListener("click", () => {
+        profilePhoto.src = "https://via.placeholder.com/80/FFFFFF/000000?text=Photo"; // Set to default
+      });
+
+      // Update profile in Firestore
+      updateProfileBtn.addEventListener("click", async () => {
+        const updatedName = userName.value; // Get updated name
+        const updatedEmail = userEmail.value; // Get updated email
+
+        const user = auth.currentUser; // Get the currently signed-in user
+        if (user) { // Ensure user is signed in
+          const userRef = doc(db, "users", user.uid); // Reference Firestore document
+          try {
+            await updateDoc(userRef, { // Update Firestore document
+              name: updatedName,
+              email: updatedEmail,
+              photoURL: profilePhoto.src,
+              teams: teamArray, 
+            });
+            alert("Profile updated!");
+          } catch (error) {
+            console.error("Error updating profile:", error);
+            alert("Error updating profile: " + error.message);
+          }
+        } else {
+          alert("You must be signed in to update your profile.");
+        }
+      });
+
+  </script>
+</body>
+</html>

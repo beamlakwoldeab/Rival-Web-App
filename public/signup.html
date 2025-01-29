@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rival - Signup</title>
+  <link rel="stylesheet" href="in_styles.css" />
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+    import { firebaseConfig } from "./firebase-config.js";
+
+    // 1) Initialize the app
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // 2) Our main sign-up function
+    async function doSignUp(email, password) {
+      try {
+        // Basic validation
+        if (!email || !password || email.length < 5) {
+          throw new Error("Invalid email or password.");
+        }
+        if (password.length < 6) {
+          throw new Error("Password must be at least 6 characters long.");
+        }
+
+        // Create user
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log("User signed up:", user);
+
+        // Write user to Firestore
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          createdAt: serverTimestamp(),
+        });
+
+        // Redirect on success
+        window.location.href = "home.html"; 
+        return true;
+      } catch (error) {
+        console.error("Signup error:", error);
+        alert("Signup failed: " + error.message);
+        return false;
+      }
+    }
+
+    // 3) The function called by the button in the HTML
+    document.getElementById('signup-button')
+    .addEventListener('click', async () => {
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      await doSignUp(email, password);
+    });
+
+  </script>
+  </script>
+</head>
+<body>
+  <div class="profile-container" id="signup-form">
+    <h2>Sign Up</h2>
+    <input type="email" id="signup-email" placeholder="Email">
+    <input type="password" id="signup-password" placeholder="Password">
+    <button id="signup-button">Sign Up</button>
+  </div>
+</body>
+</html>

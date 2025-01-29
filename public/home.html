@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rival - Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Font Awesome for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-acJ7C01u1rF8CSNsJqR0X5GCOx+Is3YZp1GXjuPsY+jW/clmNvPd6w2rT8/ZuHkEjdtHq9Xl+9v+xZAJ6PbmDA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  /> </head>
+<body>
+  <!-- ====== HEADER ====== -->
+  <header class="header">
+    <!-- Greeting -->
+    <h1 id="greetingText">Hey</h1>
+    <!-- Profile button (goes to profile.html) -->
+  <!-- Profile button -->
+  <button id="profile-button" class="profile-btn">
+    <i class="fas fa-user"></i>
+    Profile
+  </button>
+  <!-- Sign Out button -->
+  <button id="signout-button" class="signout-btn">
+    <i class="fas fa-sign-out-alt"></i>
+    Sign Out
+    </button>
+  </header>
+
+  <!-- ====== WATCH IT LIKE IT'S LIVE SECTION ====== -->
+  <section class="scrollable-section">
+    <div class="section-title">Watch it like it's live:</div>
+    <div class="scroll-container" id="watchLiveContainer">
+      
+      <a href="live.html?game=599331&video=0KRR-HJXZNY" class = "game-button" data-section="watchLive">
+        <img src = "https://i.ytimg.com/vi/0KRR-HJXZNY/default.jpg" alt="Video Thumbnail">
+        <div class="game-info"> 2019 World Series Game 7 Full Game (Nationals vs. Astros - Nationals win World Series!)
+        </div>
+      </a>
+
+      <a href="live.html?game=747139&video=ZIL6pX5RWs4" class = "game-button" data-section="watchLive">
+        <img src = "https://i.ytimg.com/vi/ZIL6pX5RWs4/default.jpg" alt="Video Thumbnail">
+        <div class="game-info"> FULL GAME: Mets vs. Braves THRILLING BACK-AND-FORTH game to clinch a Postseason berth!
+        </div>
+      </a>
+
+      <a href="live.html?game=775337&video=SDDG2Piskzs" class = "game-button" data-section="watchLive">
+        <img src = "https://i.ytimg.com/vi/SDDG2Piskzs/default.jpg" alt="Video Thumbnail">
+        <div class="game-info"> FULL GAME: NL Wild Card Game 3 - Mets at Brewers (Pete Alonso hits CLUTCH home run!)
+        </div>
+      </a>
+  <!-- Add more as needed -->
+    </div>
+  </section>
+
+  <!-- ====== HIGHLIGHTS SECTION ====== -->
+  <section class="scrollable-section">
+    <div class="section-title">Highlights:</div>
+    <div class="scroll-container" id="highlightsContainer">
+      <!-- Example placeholders (videos or placeholders) -->
+      <a href="live.html?game=highlight1&video=j3ykZoQMJLI" class = "game-button"  data-section="highlights">
+        <img src = "https://i.ytimg.com/vi/j3ykZoQMJLI/default.jpg" alt="Video Thumbnail">
+        <div class="game-info">Dodgers vs. Yankees World Series Game 5 Highlights (10/30/24)
+        </div>
+      </a>
+
+      <a href="live.html?game=highlight2&video=wJNSliLpiQ0" class = "game-button" data-section="highlights">
+        <img src = "https://i.ytimg.com/vi/wJNSliLpiQ0/default.jpg" alt="Video Thumbnail">
+        <div class="game-info">Guardians vs. Yankees ALCS Game 2 Highlights (10/15/24)
+        </div>
+      </a>
+
+      <a href="live.html?game=highlight3&video=HTy3Et-Ia3w" class = "game-button" data-section="highlights">
+        <img src = "https://i.ytimg.com/vi/HTy3Et-Ia3w/default.jpg" alt="Video Thumbnail">
+        <div class="game-info">Phillies vs. Mets NLDS Game 4 Highlights (10/9/24) 
+        </div>
+      </a>
+
+      <a href="live.html?game=highlight4&video=oKIFQPbm_Jc" class = "game-button">
+        <img src = "https://i.ytimg.com/vi/oKIFQPbm_Jc/default.jpg" alt="Video Thumbnail">
+        <div class="game-info">A's vs. Mariners Game Highlights (9/27/24)
+        </div>
+      </a>
+
+      <a href="live.html?game=highlight5&video=UKGhsgF7DS4" class = "game-button">
+        <img src = "https://i.ytimg.com/vi/UKGhsgF7DS4/default.jpg" alt="Video Thumbnail">
+        <div class="game-info">Reds vs. Cubs Game Highlights (9/29/24)
+        </div>
+      </a>
+      <!-- Add more as needed -->
+    </div>
+  </section>
+
+   <!-- ====== LIVE GAMES SECTION ====== -->
+   <section class="scrollable-section">
+    <div class="section-title">Live Games:</div>
+    <div class="scroll-container" id="liveGamesContainer">
+      <!-- Example placeholders -->
+      <button class="game-button" class="game-button">No live games to display right now</button>
+      <!-- Add more as needed -->
+    </div>
+  </section>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged,  signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { firebaseConfig } from "./firebase-config.js";
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "index.html";
+  }
+});
+
+//add a signOut function here so you can properly sign out of the app from home.html
+  async function handleSignOut() {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html"; // Redirect to login page
+      } catch (error) {
+        console.error("Sign out error:", error);
+      }
+    }
+
+  // 3. Attach event listeners after DOM has loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    // Profile button
+    const profileBtn = document.getElementById("profile-button");
+    profileBtn.addEventListener("click", () => {
+      window.location.href = "profile.html";
+    });
+    // Sign Out button
+    const signOutBtn = document.getElementById("signout-button");
+      signOutBtn.addEventListener("click", () => {
+        handleSignOut();
+      });
+  });
+    // dynamically set the greeting
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "index.html";
+      } else {
+        // Dynamically set the greeting
+        const greetingText = document.getElementById('greetingText');
+        const username = user.displayName || "User"; // Use displayName or fallback to "User"
+        greetingText.textContent = `Hey, ${username}`;
+      }
+    });
+    
+    //for seeing the different chats in the different games
+    document.querySelectorAll(".game-button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const gamePk = btn.getAttribute("data-game-id");
+      loadGameChat(gamePk);
+    });
+  });
+    
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+I0116 01:02:08.690305    8025 load.go:37] Reloading schema and connectors...
+I0116 01:02:08.706347    8025 control.go:45] [engine.Service /emulator/Rival 06e1] UpdateSchema(): done sources: schema/schema.gql [1384B] 
+I0116 01:02:08.716620    8025 control.go:73] [engine.Service /emulator/Rival 06e1] UpdateConnector(default): done sources: connector/mutations.gql [1163B] connector/queries.gql [1855B] 
+I0116 01:02:08.739442    8025 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "/home/wheresthefoodatsmith/Rival/dataconnect-generated/js/default-connector"
+I0116 01:02:08.740913    8025 collector.go:107] schema extensions wrote into "/home/wheresthefoodatsmith/Rival/dataconnect/.dataconnect/schema"
+Generated sources: prelude.gql [65151B] 
+I0116 01:02:08.741553    8025 collector.go:107] connector "default" javascriptSdk wrote into "/home/wheresthefoodatsmith/Rival/dataconnect-generated/js/default-connector"
+Generated sources: index.d.ts [264B] esm/index.esm.js [178B] esm/package.json [17B] index.cjs.js [219B] package.json [634B] 
+I0116 01:02:08.741624    8025 collector.go:114] connector "default" javascriptSdk deleted obsolete file "/home/wheresthefoodatsmith/Rival/dataconnect-generated/js/default-connector/esm/package-lock.json"
+I0116 01:02:08.741694    8025 collector.go:114] connector "default" javascriptSdk deleted obsolete file "/home/wheresthefoodatsmith/Rival/dataconnect-generated/js/default-connector/package-lock.json"
+I0116 01:02:08.742619    8025 installsdk.go:48] Package @firebasegen/default-connector is already installed. Skipping installation
+I0116 01:02:08.742667    8025 load.go:115] Finished reloading
+I0116 01:02:08.742861    8025 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:9399
+I0116 01:02:17.534251    8025 control.go:45] [engine.Service /emulator/Rival 58de] UpdateSchema(): done sources: schema/schema.gql [1384B] 
+I0116 01:02:17.534443    8025 control.go:73] [engine.Service /emulator/Rival 58de] UpdateConnector(default): done sources: connector/queries.gql [1855B] connector/mutations.gql [1163B] 

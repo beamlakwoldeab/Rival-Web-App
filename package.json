@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
+    "@google-ai/generativelanguage": "^2.9.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "firebase": "^11.1.0",
+    "firebase-admin": "^11.5.0",
+    "firebase-functions": "^4.3.0",
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "webpack-cli": "^6.0.1"
+  }
+}

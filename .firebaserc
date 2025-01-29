@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "friendlyfoes",
+    "staging": "friendlyfoes"
+  },
+  "targets": {},
+  "etags": {
+    "friendlyfoes": {
+      "extensionInstances": {}
+    }
+  }
+}

@@ -1,0 +1,496 @@
+/* Basic reset for margin & padding */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Main container that holds everything */
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Fill the entire browser window */
+    background-color: #000000; /* Black background */
+    color: #FFFFFF; /* White text */
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* TOP: Video Section */
+  .video-container {
+    flex: 1; /* This grows to fill remaining space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #111111; 
+  }
+  
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    max-height: 60vh; /* Limit video height to 60% of screen */
+    object-fit: cover;
+  }
+  
+  /* BOTTOM: Chat Section */
+  .chat-section {
+    display: flex;
+    flex-direction: row;
+    height: 40vh; /* Takes 40% of the screen’s height */
+  }
+  
+  /* Each chat box */
+  .chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px; 
+    background-color: #222222; 
+    border: 1px solid #444; 
+  }
+  
+  /* Chat header */
+  .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #333333;
+    border-bottom: 1px solid #444;
+  }
+  
+  .chat-header h2 {
+    margin: 0;
+  }
+
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  }
+  
+  .modal-content {
+    background-color: #222222;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    text-align: center;
+    color: #2ed35f;
+    font-weight: bold;
+  }
+  
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #8888;
+    color: white;
+  }
+  
+  .cheer-indicator {
+    color: #00FF00; /* Bright green for CHEER count */
+    font-weight: bold;
+  }
+  
+  /* Chat messages list */
+  .chat-messages {
+    flex: 1;
+    padding: 10px;
+    list-style: none;
+    overflow-y: auto; /* Scroll if lots of messages */
+  }
+  
+  .chat-messages li {
+    margin-bottom: 10px;
+  }
+  
+  .username {
+    font-weight: bold;
+    color: #FFD700; /* gold-ish color */
+    margin-right: 5px;
+  }
+  
+  /* Poll styling */
+  .poll p {
+    font-weight: bold;
+  }
+  
+  .poll-options {
+    display: flex;
+    flex-direction: column;
+    background-color: #333333;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  
+  .option {
+    background-color: #555555;
+    border-radius: 3px;
+    padding: 5px;
+    margin: 3px 0;
+  }
+  
+  /* Chat input area */
+  .chat-input {
+    display: flex;
+    padding: 10px;
+    background-color: #333333;
+    border-top: 1px solid #444;
+  }
+  
+  .chat-input input {
+    flex: 1;
+    padding: 8px;
+    margin-right: 5px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #222222;
+    color: #FFFFFF;
+  }
+  
+  .chat-input button {
+    padding: 8px 16px;
+    background-color: #00CC66;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-weight: bold;
+  }
+  
+  .chat-input button:hover {
+    background-color: #00994D;
+  }
+  /* NAVBAR STYLES */
+.navbar {
+  display: flex;
+  align-items: center;       /* center items vertically */
+  justify-content: space-between;  /* space out items horizontally */
+  background-color: #333;    /* dark background */
+  padding: 10px 20px;        /* some spacing around elements */
+  color: #fff;               /* text color */
+}
+
+/* Logo container */
+.navbar-logo img {
+  height: 40px;  /* control the logo size */
+  width: auto;
+}
+
+/* App name (Rival) */
+.navbar-title {
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0 20px; /* a bit of spacing to separate it from the logo */
+}
+
+/* Optional: hide text on small screens, etc. */
+@media (max-width: 600px) {
+  .profile-text {
+    display: none; /* hides the word “Profile”, leaving just the icon */
+  }
+}
+
+.game-info {
+  margin: 6px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #84ff00cf;
+}
+
+/* Profile Page Styles */
+
+    .profile-container {
+      width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #555;
+      background-color: #111;
+    }
+    /* Basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #000; /* black background */
+      color: #fff;            /* white text */
+      font-family: Arial, sans-serif;
+    }
+
+    .profile-container {
+      width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #555;
+      background-color: #111;
+    }
+
+    .profile-title {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: orange; /* match the mockup's "Account" color */
+    }
+
+    /* Photo area */
+    .photo-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .photo-wrapper {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 20px;
+    }
+
+    .photo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-buttons {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .photo-buttons button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 5px;
+      margin-bottom: 5px;
+      cursor: pointer;
+    }
+
+    .photo-buttons button:hover {
+      background-color: #555;
+    }
+
+    /* Form fields */
+    .field-group {
+      margin-bottom: 15px;
+    }
+
+    .field-group label {
+      display: inline-block;
+      width: 80px;
+    }
+
+    .field-group input {
+      background-color: #222;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 4px;
+      padding: 6px;
+      width: 200px;
+    }
+
+    /* Teams list */
+    .teams-section {
+      margin: 20px 0;
+    }
+
+    .teams-section .teams-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .team-badge {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      border: 1px solid #444;
+    }
+
+    .team-badge:hover {
+      background-color: #333;
+    }
+
+    .team-badge.add-badge {
+      font-size: 1.5rem;
+      color: #fff;
+      position: relative;
+    }
+
+    /* Update button */
+    .update-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .update-btn:hover {
+      background-color: #555;
+    }
+
+
+
+
+/* Landing Page Styles */
+
+
+    /* Basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #000; /* dark background */
+      color: #fff;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden; /* hides any horizontal scroll for the main page */
+    }
+
+    /* ====== HEADER ====== */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background-color: #111; /* a bit lighter than pure black for contrast */
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      color: orange; /* matches your sketches for the user name color */
+    }
+
+    .header .profile-btn {
+      background: none;
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #fff;
+      padding: 10px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+    }
+    .header .profile-btn:hover {
+      color: #ccc;
+    }
+    .header .signout-btn {
+      background: none;
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #fff;
+      padding: 6px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+
+    }
+
+    /* ====== SECTION TITLE ====== */
+    .section-title {
+      margin: 16px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    /* ====== SCROLLABLE SECTION ====== */
+    .scrollable-section {
+      margin-bottom: 20px;
+    }
+
+    /* container for horizontal scrolling */
+    .scroll-container {
+      display: flex;
+      overflow-x: auto; /* horizontal scroll */
+      gap: 12px;
+      padding: 0 16px 16px 16px; /* some horizontal padding and bottom padding */
+      scroll-behavior: smooth;
+    }
+
+    /* scroller track (optional) */
+    .scroll-container::-webkit-scrollbar {
+      height: 8px; /* custom height for horizontal scrollbar */
+    }
+    .scroll-container::-webkit-scrollbar-track {
+      background: #222; 
+    }
+    .scroll-container::-webkit-scrollbar-thumb {
+      background-color: #444; 
+      border-radius: 4px;
+    }
+
+    /* each item inside scrollable section (button style) */
+    .game-button {
+      width: 100%;
+      max-width: 500px;
+      padding: 100px;
+      background-color: #222;
+      border: 1px solid #444;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      text-emphasis-color: #ffffff;
+      margin: 0;
+    }
+    .game-button:hover {
+      background-color: #333;
+    }
+    .game-button img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+    }
+
+    /* ====== FILTER BUTTON ====== */
+    .filter-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin: 0 16px 8px;
+    }
+    .filter-btn {
+      background: none;
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #fff;
+      padding: 6px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+    }
+    .filter-btn:hover {
+      background-color: #333;
+    }
+    .filter-btn i {
+      margin-right: 6px;
+    }
+
+    
